@@ -1,0 +1,9 @@
+This game is created for the Citrus Jam #2, which had a duration of 48 hours. Theme: "Color is everything".
+Move: W/A/S/D or Arrow keys and Space to Jump, hold down Shift to walk slowly.
+
+Your mission is to collect spheres in order to form a rainbow. The spheres will get spawned randomly, 
+you'll have to collect all the seven colored spheres.
+The spheres have a minimum active period of 30 seconds and maximum 70 seconds. You cannot collect same colored sphere twice. 
+Your collected spheres would be displayed at the top of your screen.
+
+Play game at: https://connect.unity.com/mg/other/findtherainbow
