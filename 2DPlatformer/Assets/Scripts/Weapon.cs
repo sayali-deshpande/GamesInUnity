@@ -9,6 +9,7 @@ public class Weapon : MonoBehaviour
     public LayerMask whatToHit;
     public Transform bulletTrailPrefab;
     public Transform muzzelFlashPrefab;
+    public Transform bulletHitPrefab;
     public float spawnEffectRate = 10;
 
     private float timeToSpawnEffect = 0;
@@ -54,13 +55,7 @@ public class Weapon : MonoBehaviour
         // To show infinite or long line we just multiplied it by 100, giving 2nd parameter as a direction
         // to drawLine from start point
         Debug.DrawLine(firePointPosition, (mousePosition - firePointPosition) *100, Color.cyan);
-        if(Time.time >= timeToSpawnEffect )
-        {
-            timeToSpawnEffect = Time.time + 1 / spawnEffectRate;
-            //Spawn bullet and muzzle flash
-            StartCoroutine("Effect"); 
-        }
-
+        
         if(hit.collider != null)
         {
             Debug.DrawLine(firePointPosition, hit.point, Color.red);
@@ -73,12 +68,48 @@ public class Weapon : MonoBehaviour
                 Debug.Log("We hit " + hit.collider.name + " and did " + damage + " Damage.");
             }
         }
+
+        if (Time.time >= timeToSpawnEffect)
+        {
+            timeToSpawnEffect = Time.time + 1 / spawnEffectRate;
+            //Spawn bullet and muzzle flash
+            Vector3 hitPos;
+            Vector3 hitNormal;
+
+            if (hit.collider == null) //if it didnt hit anything
+            {
+                hitPos = (mousePosition - firePointPosition) * 30f;
+                //We cannot check if Vector3 is null or not
+                // to check this we can assign x,y,z with some crazy value to ensure
+                hitNormal = new Vector3(9999, 9999, 9999);
+            }
+            else
+            {
+                hitPos = hit.point;
+                hitNormal = hitPos;
+            }
+            StartCoroutine(Effect(hitPos, hitNormal));
+        }
     }
 
-    IEnumerator Effect()
+    IEnumerator Effect(Vector3 hitPos, Vector3 hitNormal)
     {
         //spawn Bullet
-        Instantiate(bulletTrailPrefab, firePoint.position, firePoint.rotation);
+        Transform trail = Instantiate(bulletTrailPrefab, firePoint.position, firePoint.rotation) as Transform;
+        LineRenderer lr = trail.GetComponent<LineRenderer>();
+        lr.useWorldSpace = true;
+        if(lr!= null)
+        {
+            lr.SetPosition(0, firePoint.position);
+            lr.SetPosition(1, hitPos);
+        }
+        Destroy(trail.gameObject, 0.04f);
+
+        if(hitNormal != new Vector3(9999, 9999, 9999))
+        {
+            Transform hitParticle = Instantiate(bulletHitPrefab, hitPos, Quaternion.FromToRotation(Vector3.right, hitNormal)) as Transform;
+            Destroy(hitParticle.gameObject, 1f);
+        }
 
         //spawn MuzzleFlash
         Transform clone = Instantiate(muzzelFlashPrefab, firePoint.position, firePoint.rotation) as Transform;

@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5658697669293861910}
   - component: {fileID: 7117969868893333909}
-  - component: {fileID: 114415300516091392}
   m_Layer: 0
   m_Name: BulletTrail
   m_TagString: Untagged
@@ -41,7 +40,7 @@ LineRenderer:
   m_GameObject: {fileID: 8610905625699167085}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_MotionVectors: 0
   m_LightProbeUsage: 0
@@ -79,8 +78,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.016393587
-        value: 0.027776934
+        time: 0.0000018328428
+        value: 0.1388838
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -127,16 +126,3 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 0
   m_Loop: 0
---- !u!114 &114415300516091392
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8610905625699167085}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4df01ed23a88fd44bb318ab159364caa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 230
