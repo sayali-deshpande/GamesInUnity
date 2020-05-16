@@ -11,14 +11,16 @@ public class GameMaster : MonoBehaviour
     public float spawnDelay = 2;
 
     AudioSource audioData;
-    private void Start()
+    private void Awake()
     {
         if (s_gm == null)
             s_gm = GameObject.FindGameObjectWithTag("GameMaster").GetComponent<GameMaster>();
-
-        audioData = GetComponent<AudioSource>();
     }
 
+    private void Start()
+    {
+        audioData = GetComponent<AudioSource>();
+    }
     public static void KillPlayer(Player player)
     {
         Destroy(player.gameObject);

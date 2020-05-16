@@ -11,10 +11,14 @@ public class Weapon : MonoBehaviour
     public Transform muzzelFlashPrefab;
     public Transform bulletHitPrefab;
     public float spawnEffectRate = 10;
+    public float camShakeAmount = 0.1f;
+    public float camShakeLength = 0.2f;
 
     private float timeToSpawnEffect = 0;
     private float timeToFire = 0;
     private Transform firePoint;
+    private CameraShake camShake;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -25,6 +29,15 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        camShake = GameMaster.s_gm.GetComponent<CameraShake>();
+        if(camShake == null)
+        {
+            Debug.Log("unable to get cam shake reference in weapon script");
+            return;
+        }
+    }
     // Update is called once per frame
     void Update()
     {
@@ -118,5 +131,7 @@ public class Weapon : MonoBehaviour
         clone.localScale = new Vector3(size, size, size);
         yield return 0; //skip for 1 frame
         Destroy(clone.gameObject);
+
+        camShake.Shake(camShakeAmount, camShakeLength);
     }
 }
