@@ -7,20 +7,47 @@ public class Enemy : MonoBehaviour
     [System.Serializable]
     public class EnemyStats
     {
-        public int health = 100;
+        public int maxHealth = 100;
+
+        private int _currHealth;
+        public int CurrentHealth
+        {
+            get { return _currHealth; }
+            set { _currHealth = Mathf.Clamp(value, 0, maxHealth); }
+        }
+
+        public void Init()
+        {
+            _currHealth = maxHealth;
+        }
     }
 
     EnemyStats enemyStats = new EnemyStats();
-    public int fallBoundry = -20;
 
-  
+    [Header("Optional")]
+    [SerializeField]
+    private StatusIndicator statusIndicator;
+   
+    private void Start()
+    {
+        enemyStats.Init();
+        if (statusIndicator != null)
+        {
+            statusIndicator.SetHealth(enemyStats.CurrentHealth, enemyStats.maxHealth);
+        }
+    }
     public void DamageEnemy(int damageAmount)
     {
-        enemyStats.health -= damageAmount;
-        if (enemyStats.health <= 0)
+        enemyStats.CurrentHealth -= damageAmount;
+        if (enemyStats.CurrentHealth <= 0)
         {
             Debug.Log("Kill Enemy!");
             GameMaster.KillEnemy(this);
+        }
+
+        if(statusIndicator != null)
+        {
+            statusIndicator.SetHealth(enemyStats.CurrentHealth, enemyStats.maxHealth);
         }
     }
 }
