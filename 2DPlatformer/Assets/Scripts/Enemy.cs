@@ -8,7 +8,8 @@ public class Enemy : MonoBehaviour
     public class EnemyStats
     {
         public int maxHealth = 100;
-
+        public int damagePlayerAmt = 40;
+      
         private int _currHealth;
         public int CurrentHealth
         {
@@ -21,6 +22,9 @@ public class Enemy : MonoBehaviour
             _currHealth = maxHealth;
         }
     }
+    public Transform enemyDeathParticles;
+    public float camShakeAmt = 0.1f;
+    public float camShakeLength = 0.1f;
 
     EnemyStats enemyStats = new EnemyStats();
 
@@ -35,6 +39,10 @@ public class Enemy : MonoBehaviour
         {
             statusIndicator.SetHealth(enemyStats.CurrentHealth, enemyStats.maxHealth);
         }
+        if(enemyDeathParticles == null)
+        {
+            Debug.LogError("Enemy Death particle is not refernced!");
+        }
     }
     public void DamageEnemy(int damageAmount)
     {
@@ -48,6 +56,16 @@ public class Enemy : MonoBehaviour
         if(statusIndicator != null)
         {
             statusIndicator.SetHealth(enemyStats.CurrentHealth, enemyStats.maxHealth);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Player _player = collision.gameObject.GetComponent<Player>();
+        if(_player != null)
+        {
+            _player.DamagePlayer(enemyStats.damagePlayerAmt);
+            DamageEnemy(9999);
         }
     }
 }

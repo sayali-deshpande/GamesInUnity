@@ -1009,27 +1009,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 83800076, guid: 87a2357765801c34292d6718d8b4d770, type: 3}
-      propertyPath: fireRate
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 83800076, guid: 87a2357765801c34292d6718d8b4d770, type: 3}
-      propertyPath: bulletHitPrefab
-      value: 
-      objectReference: {fileID: 4745621421594194651, guid: df93a323988d9ef4bb78c5811bddf699,
-        type: 3}
-    - target: {fileID: 83800076, guid: 87a2357765801c34292d6718d8b4d770, type: 3}
-      propertyPath: whatToHit.m_Bits
-      value: 3379
-      objectReference: {fileID: 0}
-    - target: {fileID: 83800076, guid: 87a2357765801c34292d6718d8b4d770, type: 3}
-      propertyPath: camShakeAmount
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 83800076, guid: 87a2357765801c34292d6718d8b4d770, type: 3}
-      propertyPath: camShakeLength
-      value: 0.1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87a2357765801c34292d6718d8b4d770, type: 3}
 --- !u!1 &1819218373
@@ -1572,7 +1551,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 477259774, guid: a2d52f82e9e3e6f4b96c994d095be200, type: 3}
       propertyPath: m_DynamicPixelsPerUnit
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1012482512, guid: a2d52f82e9e3e6f4b96c994d095be200, type: 3}
       propertyPath: m_FontData.m_FontSize
@@ -1590,6 +1569,11 @@ PrefabInstance:
       propertyPath: statusIndicator
       value: 
       objectReference: {fileID: 211232682773651190}
+    - target: {fileID: 2140996547, guid: a2d52f82e9e3e6f4b96c994d095be200, type: 3}
+      propertyPath: enemyDeathParticles
+      value: 
+      objectReference: {fileID: 8137795151015332028, guid: 73ae44ad36632a940ac48dfba3b0d984,
+        type: 3}
     - target: {fileID: 211232680701861169, guid: a2d52f82e9e3e6f4b96c994d095be200,
         type: 3}
       propertyPath: m_LocalPosition.x

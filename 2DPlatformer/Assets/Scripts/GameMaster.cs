@@ -10,16 +10,24 @@ public class GameMaster : MonoBehaviour
     public Transform spawnPrefab; // for particle system on player respawn
     public float spawnDelay = 2;
 
+    public CameraShake camShake;
+
     AudioSource audioData;
     private void Awake()
     {
         if (s_gm == null)
             s_gm = GameObject.FindGameObjectWithTag("GameMaster").GetComponent<GameMaster>();
+
     }
 
     private void Start()
     {
         audioData = GetComponent<AudioSource>();
+        camShake = this.gameObject.GetComponent<CameraShake>();
+        if(camShake == null)
+        {
+            Debug.LogError("Camera Shake is not referenced for Game Master script!");
+        }
     }
     public static void KillPlayer(Player player)
     {
@@ -29,7 +37,7 @@ public class GameMaster : MonoBehaviour
 
     public static void KillEnemy(Enemy enemy)
     {
-        Destroy(enemy.gameObject);
+        s_gm._KillEnemy(enemy);
     }
 
     public IEnumerator RespawnPlayer()
@@ -41,5 +49,13 @@ public class GameMaster : MonoBehaviour
         Transform clone = Instantiate(spawnPrefab, spawnPoint.position, spawnPoint.rotation);
         Destroy(clone.gameObject, 3f);
         Debug.Log("ToDo: Add SpawnParticles");
+    }
+
+    public void _KillEnemy(Enemy _enemy)
+    {
+        Transform _clone = Instantiate(_enemy.enemyDeathParticles, _enemy.transform.position, Quaternion.identity) as Transform;
+        Destroy(_clone.gameObject, 5f);
+        camShake.Shake(_enemy.camShakeAmt, _enemy.camShakeLength);
+        Destroy(_enemy.gameObject);
     }
 }
