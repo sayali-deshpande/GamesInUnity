@@ -26,6 +26,7 @@ public class Enemy : MonoBehaviour
     public float camShakeAmt = 0.1f;
     public float camShakeLength = 0.1f;
 
+    [SerializeField]
     EnemyStats enemyStats = new EnemyStats();
 
     [Header("Optional")]

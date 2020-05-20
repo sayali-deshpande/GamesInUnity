@@ -448,4 +448,7 @@ MonoBehaviour:
     type: 3}
   camShakeAmt: 0.1
   camShakeLength: 0.1
+  enemyStats:
+    maxHealth: 100
+    damagePlayerAmt: 20
   statusIndicator: {fileID: 477259776}

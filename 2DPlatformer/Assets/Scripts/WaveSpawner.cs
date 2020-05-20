@@ -23,6 +23,21 @@ public class WaveSpawner : MonoBehaviour
     private int nextWave = 0;
     private float searchCountDown = 1f;
 
+    public SpawnState GetSpawnState
+    {
+        get { return spawnState; }
+    }
+
+    public float WaveCountDown
+    {
+        get { return waveCountDown; }
+    }
+
+    public int NextWave
+    {
+        get { return nextWave + 1; }
+    }
+
     private void Start()
     {
         waveCountDown = timeBetweenWaves;

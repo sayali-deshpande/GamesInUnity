@@ -45,10 +45,12 @@ public class GameMaster : MonoBehaviour
         audioData.Play();
         yield return new WaitForSeconds(spawnDelay);
 
-        Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
-        Transform clone = Instantiate(spawnPrefab, spawnPoint.position, spawnPoint.rotation);
-        Destroy(clone.gameObject, 3f);
-        Debug.Log("ToDo: Add SpawnParticles");
+        if (GameObject.FindGameObjectWithTag("Player") == null)
+        {
+            Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
+            Transform clone = Instantiate(spawnPrefab, spawnPoint.position, spawnPoint.rotation);
+            Destroy(clone.gameObject, 3f);
+        }
     }
 
     public void _KillEnemy(Enemy _enemy)
