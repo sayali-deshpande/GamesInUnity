@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameMaster : MonoBehaviour
 {
     public static GameMaster s_gm;
+    public static int _remainingLives = 3;
     public Transform playerPrefab;
     public Transform spawnPoint;
     public Transform spawnPrefab; // for particle system on player respawn
@@ -13,6 +14,13 @@ public class GameMaster : MonoBehaviour
     public CameraShake camShake;
 
     AudioSource audioData;
+    [SerializeField]
+    GameObject gameOverUI;
+
+    public static int RemainingLives
+    {
+        get { return _remainingLives; }
+    }
     private void Awake()
     {
         if (s_gm == null)
@@ -22,6 +30,7 @@ public class GameMaster : MonoBehaviour
 
     private void Start()
     {
+        _remainingLives = 3;
         audioData = GetComponent<AudioSource>();
         camShake = this.gameObject.GetComponent<CameraShake>();
         if(camShake == null)
@@ -29,10 +38,24 @@ public class GameMaster : MonoBehaviour
             Debug.LogError("Camera Shake is not referenced for Game Master script!");
         }
     }
+
+    private void EndGame()
+    {
+        Debug.Log("Game Over!");
+        gameOverUI.SetActive(true);
+    }
     public static void KillPlayer(Player player)
     {
         Destroy(player.gameObject);
-        s_gm.StartCoroutine(s_gm.RespawnPlayer());
+        _remainingLives -= 1;
+        if (_remainingLives <= 0)
+        {
+            s_gm.EndGame();
+        }
+        else
+        {
+            s_gm.StartCoroutine(s_gm.RespawnPlayer());
+        }
     }
 
     public static void KillEnemy(Enemy enemy)
