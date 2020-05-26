@@ -7,7 +7,8 @@ public class GameOverUI : MonoBehaviour
     public void Quit()
     {
         Debug.Log("Application quit!");
-        Application.Quit();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        //Application.Quit();
     }
 
     public void Retry()
